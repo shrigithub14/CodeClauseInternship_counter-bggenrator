@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Countdown Timer</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      background-color: yellow;
+    }
+
+    #countdown {
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+<div id="countdown">
+  <h1>Event Countdown</h1>
+  <label for="eventName">Event Name:</label>
+  <input type="text" id="eventName" required>
+  <label for="eventDate">Enter Event Date and Time:</label>
+  <input type="datetime-local" id="eventDate" required>
+  <button onclick="startCountdown()">Start Countdown</button>
+  <h2 id="eventNameDisplay"></h2>
+  <div id="timer"></div>
+</div>
+
+<script>
+  function startCountdown() {
+    const eventNameInput = document.getElementById('eventName');
+    const eventDateInput = document.getElementById('eventDate');
+    const eventName = eventNameInput.value;
+    const eventDate = new Date(eventDateInput.value).getTime();
+
+    if (isNaN(eventDate) || eventName.trim() === "") {
+      alert('Please enter a valid event name and date.');
+      return;
+    }
+
+    const eventNameDisplay = document.getElementById('eventNameDisplay');
+    eventNameDisplay.textContent = `Countdown for: ${eventName}`;
+
+    const timerElement = document.getElementById('timer');
+
+    const updateTimer = () => {
+      const now = new Date().getTime();
+      const timeDifference = eventDate - now;
+
+      if (timeDifference <= 0) {
+        timerElement.innerHTML = 'Event has started!';
+      } else {
+        const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+        timerElement.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+      }
+    };
+
+    setInterval(updateTimer, 1000);
+    updateTimer();
+  }
+</script>
+
+</body>
+</html>

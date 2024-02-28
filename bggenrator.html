@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Background Generator</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      background: linear-gradient(to right, #00c6fb, #005bea);
+      color: #fff;
+      text-align: center;
+    }
+    h1{
+        background-color: yellow;
+        color:black;
+    }
+    #app {
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    #preview {
+      width: 300px;
+      height: 150px;
+      margin: 20px auto;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    button {
+      padding: 10px 20px;
+      margin-top: 10px;
+      cursor: pointer;
+      border: 2px black  solid;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+<body>
+ 
+<div id="app">
+ <b><h1>Background Generator</h1>
+ </b> 
+  <label for="color1">Color 1:</label>
+  <input type="color" id="color1" value="#00c6fb">
+
+  <label for="color2">Color 2:</label>
+  <input type="color" id="color2" value="#005bea">
+
+  <label for="gradientType">Gradient Type:</label>
+  <select id="gradientType">
+    <option value="linear">Linear Gradient</option>
+    <option value="radial">Radial Gradient</option>
+  </select>
+
+  <div id="preview"></div>
+
+  <button onclick="generateBackground()" class="btn">Generate Background</button>
+</div>
+
+<script>
+  function generateBackground() {
+    const color1 = document.getElementById('color1').value;
+    const color2 = document.getElementById('color2').value;
+    const gradientType = document.getElementById('gradientType').value;
+    const preview = document.getElementById('preview');
+
+    const gradient = (gradientType === 'radial')
+      ? `radial-gradient(${color1}, ${color2})`
+      : `linear-gradient(to right, ${color1}, ${color2})`;
+
+    preview.style.background = gradient;
+  }
+</script>
+
+</body>
+</html>
